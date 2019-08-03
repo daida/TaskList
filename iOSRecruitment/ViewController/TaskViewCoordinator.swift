@@ -18,22 +18,23 @@ class TaskCoordinator: Coordinator {
     
     let navigationController: UINavigationController
     let dataController: TaskDataController = TaskDataController()
-    let taskListController: TaskListViewController
+    
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        let viewModel = TaskListViewModel(dataController: self.dataController)
-        self.taskListController = TaskListViewController(viewModel: viewModel)
     }
     
     func start() {
-        self.taskListController.delegate = self
-        self.navigationController.pushViewController(self.taskListController, animated: false)
+        let viewModel = TaskListViewModel(dataController: self.dataController)
+        let taskListController = TaskListViewController(viewModel: viewModel)
+        taskListController.delegate = self
+        self.navigationController.pushViewController(taskListController, animated: false)
     }
 }
 
 extension TaskCoordinator: TaskListViewControllerDelegate {
-    func userDidTapOnTask(task: TaskListViewModel) {
-        
+    func userDidTapOnTask(task: TaskViewModel) {
+        let detailViewController = TaskDetailViewController(taskViewModel: task)
+        self.navigationController.pushViewController(detailViewController, animated: true)
     }
 }

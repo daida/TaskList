@@ -27,7 +27,13 @@ class TaskDataController {
         }
     }
     
-    func deleteTask(Index: Int) {
+    func deleteTask(Task: Task) {
         
-    }    
+    }
+    
+    func updateTask(Task: Task) {
+        
+    }
+    
+    
 }

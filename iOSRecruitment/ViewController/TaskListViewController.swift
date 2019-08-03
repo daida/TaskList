@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol TaskListViewControllerDelegate: class {
-    func userDidTapOnTask(task: TaskListViewModel)
+    func userDidTapOnTask(task: TaskViewModel)
 }
 
 class TaskListViewController: UIViewController {
@@ -157,7 +157,9 @@ extension TaskListViewController: UICollectionViewDataSource {
 extension TaskListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        guard indexPath.item >= 0, indexPath.item < self.viewModel.taskViewModel.count else { return }
+        let taskViewModel = self.viewModel.taskViewModel[indexPath.item]
+        self.delegate?.userDidTapOnTask(task: taskViewModel)
     }
     
 }
