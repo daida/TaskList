@@ -105,6 +105,19 @@ class TaskListViewController: UIViewController {
         }
     }
     
+    private func handleErrorMessage(result: Bool) {
+        let alert = UIAlertController(title: nil, message: "Impossible de charger les taches", preferredStyle: UIAlertController.Style.alert)
+        let retry = UIAlertAction(title: "Réessayer", style: UIAlertAction.Style.default) { [weak self] _ in
+            guard let `self` = self else { return }
+            self.viewModel.loadTask()
+        }
+        let cancel = UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil)
+        alert.addAction(retry)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func setupViewModel() {
         self.viewModel.shouldDisplaySpiner.bind { [weak self] _, result in
             guard let `self` = self else { return }

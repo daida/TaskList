@@ -8,18 +8,24 @@
 
 import Foundation
 
-struct Task {
-    let identifier: String = UUID().uuidString
+struct Task: Equatable {
+    private let identifier: String
+    let title: String
+    let done: Bool
+    let text: String
     
-    var title: String
-    var done = false
-    var text =
-    """
- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ultricies blandit velit, eu viverra mi feugiat non. Cras et venenatis eros, et facilisis nunc. Curabitur ac ornare tellus. Nullam posuere enim et nisi aliquet lobortis. Ut id tincidunt ipsum. Ut at libero in ligula fringilla luctus vel sit amet nunc. Proin sed ex quam. Etiam a consequat sapien. Nam tristique, nibh vitae sagittis sagittis, risus nulla consequat purus, eu molestie metus diam tincidunt lectus. Nam massa urna, porta sit amet lorem sit amet, pellentesque consectetur mi. Sed malesuada, mauris vel volutpat laoreet, urna nisl dictum nisl, eu auctor lectus sapien vitae leo. Quisque ultrices vestibulum nisl egestas bibendum.
- """
-
-    
-    init(_ title: String) {
+    init(identifier: String = UUID().uuidString, title: String, done: Bool, text: String) {
         self.title = title
+        self.done =  done
+        self.text = text
+        self.identifier = identifier
+    }
+    
+    func completeTask() -> Task {
+        return Task(identifier: self.identifier, title: self.title, done: true, text: self.text)
+    }
+    
+    func unCompleteTask() -> Task {
+        return Task(identifier: self.identifier, title: self.title, done: false, text: self.text)
     }
 }

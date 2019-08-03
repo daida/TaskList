@@ -18,22 +18,32 @@ class TaskDataController {
     let apiService = TaskAPIService()
     let archiver = TaskArchiver()
     
-    var Task: [Task] = []
+    var task: [Task] = []
     
     func loadTask(completion: @escaping (Result) -> Void) {
         self.apiService.getTasks { dest in
-            self.Task = dest
-            DispatchQueue.main.async { completion(.success(task: self.Task)) }
+            self.task = dest
+            DispatchQueue.main.async { completion(.success(task: self.task)) }
         }
     }
     
-    func deleteTask(Task: Task) {
-        
+    func deleteTask(task: Task) {
+        guard let index = self.task.firstIndex(where: { $0 == task } ) else {
+            print("Error can't find the right task to update")
+            return
+        }
+        self.task.remove(at: index)
+        print("index \(index) successfully removed")
     }
     
-    func updateTask(Task: Task) {
-        
+    func updateTask(task: Task, isDone: Bool) -> Task? {
+        guard let index = self.task.firstIndex(where: { $0 == task } ) else {
+            print("Error can't find the right task to update")
+            return nil
+        }
+        self.task[index] = isDone ? task.completeTask() : task.unCompleteTask()
+        print("Modification du modele OK")
+        return self.task[index]
     }
-    
     
 }

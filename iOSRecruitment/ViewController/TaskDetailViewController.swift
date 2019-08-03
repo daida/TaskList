@@ -41,7 +41,7 @@ class TaskDetailViewController: UIViewController {
     }
     
     func setupModel() {
-        self.isDoneSwitch.isOn = self.taskViewModel.done
+        self.isDoneSwitch.isOn = self.taskViewModel.done.value
         self.titleLabel.text = self.taskViewModel.title
         self.textView.text = self.taskViewModel.text
     }
@@ -76,10 +76,19 @@ class TaskDetailViewController: UIViewController {
         self.isDoneSwitch.backgroundColor = UIColor.purple
     }
     
+   @objc private func handleUserDidTouchSwitch() {
+        self.taskViewModel.userDidTouchIsDoneSwitch(newValue: self.isDoneSwitch.isOn)
+    }
+    
+    private func setupSwitch() {
+        self.isDoneSwitch.addTarget(self, action: #selector(handleUserDidTouchSwitch), for: .valueChanged)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
         self.setupModel()
         self.setupLayout()
+        self.setupSwitch()
     }
 }
