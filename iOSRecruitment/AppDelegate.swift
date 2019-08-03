@@ -4,10 +4,24 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let rootNavigationViewController: UINavigationController = UINavigationController()
+    var coordinator: TaskCoordinator? = nil
+    
+    private func setupRootViewController() {
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = self.rootNavigationViewController
+        self.window?.makeKeyAndVisible()
+    }
+    
+    private func setupCoordinator() {
+        self.coordinator = TaskCoordinator(navigationController: self.rootNavigationViewController)
+        self.coordinator?.start()
+    }
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        self.setupRootViewController()
+        self.setupCoordinator()
         return true
     }
 
