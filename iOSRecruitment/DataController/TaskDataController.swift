@@ -37,10 +37,10 @@ class TaskDataController {
         }
     }
     
-    func deleteTask(task: Task) {
+    func deleteTask(task: Task) -> Bool {
         guard let index = self.task.firstIndex(where: { $0 == task } ) else {
             print("Error can't find the right task to update")
-            return
+            return false
         }
         self.task.remove(at: index)
         self.saveTask() { result in
@@ -50,6 +50,7 @@ class TaskDataController {
                 print("index \(index) error on removed opperation")
             }
         }
+        return true
     }
     
     func updateTask(task: Task, isDone: Bool) -> Task? {
@@ -71,5 +72,9 @@ class TaskDataController {
     func saveTask(completion: @escaping (Bool) -> Void) {
         self.archiver.saveTask(task: self.task, completion: completion)
      }
+    
+    func resetTask(completion: @escaping ((Bool) -> Void)) {
+        self.archiver.deleteCache(completion: completion)
+    }
     
 }

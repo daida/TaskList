@@ -55,6 +55,12 @@ class TaskListViewController: UIViewController {
         self.collectionView.register(TaskCell.self, forCellWithReuseIdentifier: TaskCell.cellReuseIdentifer)
     }
     
+    func setupResetButton() {
+        let logoutBarButtonItem = UIBarButtonItem(title: "Reset", style: .done, target: self, action: #selector(userDidTapOnResetButton))
+        
+        self.navigationItem.leftBarButtonItem  = logoutBarButtonItem
+    }
+    
     func setupLayout() {
         // Label
         var constraints = [NSLayoutConstraint]()
@@ -99,13 +105,7 @@ class TaskListViewController: UIViewController {
         result ? self.showSpiner() : self.hideSpiner()
     }
     
-    private func handleTaskReloading(result: Bool) {
-        if result == true {
-            self.collectionView.reloadData()
-        }
-    }
-    
-    private func handleErrorMessage(result: Bool) {
+    private func handleErrorMessage() {
         let alert = UIAlertController(title: nil, message: "Impossible de charger les taches", preferredStyle: UIAlertController.Style.alert)
         let retry = UIAlertAction(title: "Réessayer", style: UIAlertAction.Style.default) { [weak self] _ in
             guard let `self` = self else { return }
@@ -119,20 +119,35 @@ class TaskListViewController: UIViewController {
     }
     
     func setupViewModel() {
+        
         self.viewModel.shouldDisplaySpiner.bind { [weak self] _, result in
             guard let `self` = self else { return }
             DispatchQueue.main.async { self.handleSpinerDisplay(result: result) }
         }
         
-        self.viewModel.shouldReloadTask.bind { [weak self] _, result in
-            guard let `self` = self else { return }
-            DispatchQueue.main.async { self.handleTaskReloading(result: result) }
-        }
-        
         self.handleSpinerDisplay(result: self.viewModel.shouldDisplaySpiner.value)
-        self.handleTaskReloading(result: self.viewModel.shouldReloadTask.value)
+        
+        self.viewModel.shouldDisplayTaskList.bind { [weak self] _, result in
+
+            DispatchQueue.main.async {
+                guard let `self` = self else { return }
+                
+                UIView.animate(withDuration: 0.35) {
+                    self.collectionView.alpha = result ? 1.0 : 0.0
+                }
+            }
+
+        }
+
+        self.collectionView.alpha = self.viewModel.shouldDisplayTaskList.value ? 1.0 : 0.0
+        
+        self.viewModel.delegate = self
         
         self.viewModel.loadTask()
+    }
+    
+    @objc func userDidTapOnResetButton() {
+        self.viewModel.userWantToResetTask()
     }
     
     override func viewDidLoad() {
@@ -141,6 +156,10 @@ class TaskListViewController: UIViewController {
         self.setupLayout()
         self.setupViewModel()
         self.setupCollectionView()
+        self.setupResetButton()
+        
+        self.title = "Task List"
+        
     }
 
     
@@ -180,5 +199,19 @@ extension TaskListViewController: UICollectionViewDelegate {
 extension TaskListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 35)
+    }
+}
+
+extension TaskListViewController: TaskListViewModelDelegate {
+    func userWantDeleteIndexPath(_ indexPath: IndexPath) {
+        self.collectionView.deleteItems(at: [indexPath])
+    }
+    
+    func taskNeedToBeUpdated() {
+        self.collectionView.reloadData()
+    }
+    
+    func displayErrorView() {
+        self.handleErrorMessage()
     }
 }

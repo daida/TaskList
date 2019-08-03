@@ -12,6 +12,7 @@ struct TaskArchiver {
     
     typealias TaskArchiverLoadingHandlerClosure = ([Task]?) -> Void
     typealias TaskArchiverSavingHandlerClosure = (Bool) -> Void
+    typealias TaskArchiverResetCacheHandlerClosure = (Bool) -> Void
     
     let jsonEncoder = JSONEncoder()
     let jsonDecoder = JSONDecoder()
@@ -28,27 +29,40 @@ struct TaskArchiver {
     }()
     
     func loadTaskFromDisk(completion: @escaping TaskArchiverLoadingHandlerClosure) {
-        do {
-            let data = try Data(contentsOf: self.archiveFileURL)
-            let task = try self.jsonDecoder.decode([Task].self, from: data)
-            self.dispatchQueue.async {
+        self.dispatchQueue.async {
+            do {
+                let data = try Data(contentsOf: self.archiveFileURL)
+                let task = try self.jsonDecoder.decode([Task].self, from: data)
                 completion(task)
             }
+            catch {
+                completion(nil)
+            }
         }
-        catch {
-            completion(nil)
-        }
-
     }
     
-    func saveTask(task: [Task], completion: TaskArchiverSavingHandlerClosure) {
-        do {
-            let dest = try self.jsonEncoder.encode(task)
-            try dest.write(to: self.archiveFileURL)
-            completion(true)
-        } catch {
-            print("Error -> \(error.localizedDescription)")
-            completion(false)
+    func saveTask(task: [Task], completion: @escaping TaskArchiverSavingHandlerClosure) {
+        self.dispatchQueue.async {
+            do {
+                let dest = try self.jsonEncoder.encode(task)
+                try dest.write(to: self.archiveFileURL)
+                completion(true)
+            } catch {
+                print("Error -> \(error.localizedDescription)")
+                completion(false)
+            }
+        }
+    }
+    
+    func deleteCache(completion: @escaping TaskArchiverResetCacheHandlerClosure) {
+        self.dispatchQueue.async {
+            do {
+                try FileManager.default.removeItem(at: self.archiveFileURL)
+                completion(true)
+            } catch {
+                completion(false)
+                print("Error -> \(error.localizedDescription)")
+            }
         }
 
     }

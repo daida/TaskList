@@ -35,6 +35,13 @@ class TaskCoordinator: Coordinator {
 extension TaskCoordinator: TaskListViewControllerDelegate {
     func userDidTapOnTask(task: TaskViewModel) {
         let detailViewController = TaskDetailViewController(taskViewModel: task)
+        detailViewController.delegate = self
         self.navigationController.pushViewController(detailViewController, animated: true)
+    }
+}
+
+extension TaskCoordinator: TaskDetailViewControllerDetailDelegate {
+    func userDidDeleteTask() {
+        self.navigationController.popViewController(animated: true)
     }
 }

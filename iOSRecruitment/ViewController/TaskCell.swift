@@ -25,6 +25,12 @@ class TaskCell: UICollectionViewCell {
         return dest
     }()
     
+    let deleteButton: UIButton = {
+        let dest = UIButton(type: .custom)
+        dest.translatesAutoresizingMaskIntoConstraints = false
+        return dest
+    }()
+    
     private weak var taskViewModel: TaskViewModel?
     
 
@@ -49,6 +55,10 @@ class TaskCell: UICollectionViewCell {
         constraints.append(self.label.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10))
         constraints.append(self.label.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor))
         
+        constraints.append(self.deleteButton.leadingAnchor.constraint(equalTo: self.label.trailingAnchor, constant: 10))
+        constraints.append(self.deleteButton.centerYAnchor.constraint(equalTo: self.centerYAnchor))
+        constraints.append(self.deleteButton.trailingAnchor.constraint(equalTo: self.isDoneSwitch.leadingAnchor, constant: -10))
+        
         constraints.append(self.isDoneSwitch.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10))
         constraints.append(self.isDoneSwitch.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor))
         
@@ -58,15 +68,25 @@ class TaskCell: UICollectionViewCell {
     func setupView() {
         self.contentView.addSubview(self.label)
         self.contentView.addSubview(self.isDoneSwitch)
+        self.contentView.addSubview(self.deleteButton)
         self.backgroundColor = UIColor.blue
+        self.deleteButton.setTitle("DELETE", for: UIControl.State.normal)
     }
     
     @objc func userDidTouchSwitch() {
         self.taskViewModel?.userDidTouchIsDoneSwitch(newValue: self.isDoneSwitch.isOn)
     }
     
+    @objc func userDidTouchDeleteButton() {
+        self.taskViewModel?.userDidPressDeleteButton()
+    }
+    
     func setupSwitch() {
         self.isDoneSwitch.addTarget(self, action: #selector(userDidTouchSwitch), for: .valueChanged)
+    }
+    
+    func setupDeleteButton() {
+        self.deleteButton.addTarget(self, action: #selector(userDidTouchDeleteButton), for: UIControl.Event.touchUpInside)
     }
     
     override init(frame: CGRect) {
@@ -74,6 +94,7 @@ class TaskCell: UICollectionViewCell {
         self.setupView()
         self.setupLayout()
         self.setupSwitch()
+        self.setupDeleteButton()
     }
     
     required init?(coder aDecoder: NSCoder) {
