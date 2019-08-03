@@ -27,6 +27,7 @@ class TaskDetailViewController: UIViewController {
     
     let textView: UITextView = {
         let dest = UITextView()
+        dest.isEditable = false
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()

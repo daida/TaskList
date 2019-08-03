@@ -136,7 +136,6 @@ class TaskListViewController: UIViewController {
                     self.collectionView.alpha = result ? 1.0 : 0.0
                 }
             }
-
         }
 
         self.collectionView.alpha = self.viewModel.shouldDisplayTaskList.value ? 1.0 : 0.0
@@ -167,11 +166,7 @@ class TaskListViewController: UIViewController {
         self.setupResetButton()
         
         self.title = "Task List"
-        
     }
-
-    
-    
 }
 
 extension TaskListViewController: UICollectionViewDataSource {
