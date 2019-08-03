@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Task: Equatable {
+struct Task: Equatable, Encodable, Decodable {
     private let identifier: String
     let title: String
     let done: Bool

@@ -21,9 +21,19 @@ class TaskDataController {
     var task: [Task] = []
     
     func loadTask(completion: @escaping (Result) -> Void) {
-        self.apiService.getTasks { dest in
-            self.task = dest
-            DispatchQueue.main.async { completion(.success(task: self.task)) }
+        
+        self.archiver.loadTaskFromDisk { localTask in
+            
+            if let localTask = localTask {
+                self.task = localTask
+                DispatchQueue.main.async { completion(.success(task: self.task)) }
+                return
+            }
+            
+            self.apiService.getTasks { remoteTask in
+                self.task = remoteTask
+                DispatchQueue.main.async { completion(.success(task: self.task)) }
+            }
         }
     }
     
@@ -33,7 +43,13 @@ class TaskDataController {
             return
         }
         self.task.remove(at: index)
-        print("index \(index) successfully removed")
+        self.saveTask() { result in
+            if result == true {
+                print("index \(index) successfully removed")
+            } else {
+                print("index \(index) error on removed opperation")
+            }
+        }
     }
     
     func updateTask(task: Task, isDone: Bool) -> Task? {
@@ -42,8 +58,18 @@ class TaskDataController {
             return nil
         }
         self.task[index] = isDone ? task.completeTask() : task.unCompleteTask()
-        print("Modification du modele OK")
+        self.saveTask() { result in
+            if result == true {
+                print("index-> \(index) isDone -> \(isDone) Save OK")
+            } else {
+                print("index-> \(index) isDone -> \(isDone) Save KO")
+            }
+        }
         return self.task[index]
     }
+    
+    func saveTask(completion: @escaping (Bool) -> Void) {
+        self.archiver.saveTask(task: self.task, completion: completion)
+     }
     
 }
