@@ -22,11 +22,13 @@ class TaskCell: UICollectionViewCell {
     let isDoneSwitch: UISwitch = {
         let dest = UISwitch()
         dest.translatesAutoresizingMaskIntoConstraints = false
+        dest.setContentCompressionResistancePriority(UILayoutPriority.required, for: NSLayoutConstraint.Axis.horizontal)
         return dest
     }()
     
     let deleteButton: UIButton = {
         let dest = UIButton(type: .custom)
+        dest.setContentCompressionResistancePriority(UILayoutPriority.required, for: .horizontal)
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
@@ -55,7 +57,7 @@ class TaskCell: UICollectionViewCell {
         constraints.append(self.label.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10))
         constraints.append(self.label.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor))
         
-        constraints.append(self.deleteButton.leadingAnchor.constraint(equalTo: self.label.trailingAnchor, constant: 10))
+        constraints.append(self.deleteButton.leadingAnchor.constraint(greaterThanOrEqualTo: self.label.trailingAnchor, constant: 10))
         constraints.append(self.deleteButton.centerYAnchor.constraint(equalTo: self.centerYAnchor))
         constraints.append(self.deleteButton.trailingAnchor.constraint(equalTo: self.isDoneSwitch.leadingAnchor, constant: -10))
         
@@ -70,6 +72,7 @@ class TaskCell: UICollectionViewCell {
         self.contentView.addSubview(self.isDoneSwitch)
         self.contentView.addSubview(self.deleteButton)
         self.backgroundColor = UIColor.blue
+        self.contentView.clipsToBounds = true
         self.deleteButton.setTitle("DELETE", for: UIControl.State.normal)
     }
     
