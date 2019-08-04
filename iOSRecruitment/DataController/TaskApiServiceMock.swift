@@ -11,6 +11,10 @@ import Foundation
 // MARK: Mock extension
 
 extension TaskAPIService {
+    
+    /// Return an Array of `Task`
+    ///
+    /// - Returns: an array of `Task`
     func generateMockedList() -> [Task] {
         let task1 = Task(title: "Afficher une liste de tache", done: false, text: """
 L'objectif est d'afficher une liste de tache dans une collection, ou il sera possible de dire si la tache est terminé ou pas

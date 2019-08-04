@@ -11,10 +11,12 @@ import UIKit
 
 // MARK: - TaskCell
 
+/// Display a summary of the task, and allow user to perform isDone and delete actions
 class TaskCell: UICollectionViewCell {
 
     // MARK: - Style
     
+    /// Represent the graphical Style of the View (color, corner radius, font, etc..)
     private struct Style {
         static let backgroundColor = UIColor.lightGray
         static let titleColor = UIColor.white
@@ -25,22 +27,28 @@ class TaskCell: UICollectionViewCell {
     
     // MARK: Private properties
     
-    private var taskViewModel: TaskViewModel?
+    /// `TaskCell` stay updated by observing some properties.
+    /// User actions are sent to the viewModel.
+    private var taskViewModel: TaskViewModelInterface?
     
     // MARK: Static public properties
     
+    /// Reuse Identifer used for `UICollectionView` dequeuing
     static let cellReuseIdentifer = String(describing: self)
 
     // MARK: Private properties
     
     // MARK: UIView
     
+    /// Display task title
     private let label: UILabel = {
         let dest = UILabel(frame: .zero)
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
 
+    /// Display if the Task is done or not, it the value of the switch change
+    /// the viewModel is notify.
     private let isDoneSwitch: UISwitch = {
         let dest = UISwitch()
         dest.translatesAutoresizingMaskIntoConstraints = false
@@ -48,6 +56,7 @@ class TaskCell: UICollectionViewCell {
         return dest
     }()
     
+    /// Display a button with the text "DELETE" if the user tap on it the viewModel is notify.
     private let deleteButton: UIButton = {
         let dest = UIButton(type: .custom)
         dest.setContentCompressionResistancePriority(UILayoutPriority.required, for: .horizontal)
@@ -64,7 +73,11 @@ class TaskCell: UICollectionViewCell {
     
     // MARK: Configure method
     
-    func configure(model: TaskViewModel) {
+    /// Configure method called from the UICollectionViewDataSource method:
+    /// `cellForItemAt`
+    ///
+    /// - Parameter model: `TaskViewModelInterface` concrete implentation.
+    func configure(model: TaskViewModelInterface) {
         self.label.text = model.title
         self.isDoneSwitch.isOn = model.done.value
         self.taskViewModel = model
@@ -74,7 +87,7 @@ class TaskCell: UICollectionViewCell {
         }
     }
     
-    // MARK: Setup
+    // MARK: Setup the view layout
 
     private func setupLayout() {
         var constraints = [NSLayoutConstraint]()
@@ -92,21 +105,25 @@ class TaskCell: UICollectionViewCell {
         NSLayoutConstraint.activate(constraints)
     }
     
+    /// Setup the view hierarchy
     private func setupView() {
         self.contentView.addSubview(self.label)
         self.contentView.addSubview(self.isDoneSwitch)
         self.contentView.addSubview(self.deleteButton)
     }
     
+    /// Setup the switch target
     private func setupSwitch() {
         self.isDoneSwitch.addTarget(self, action: #selector(userDidTouchSwitch), for: .valueChanged)
     }
     
+    /// Setup the delete button text and target
     private func setupDeleteButton() {
         self.deleteButton.setTitle("DELETE", for: .normal)
         self.deleteButton.addTarget(self, action: #selector(userDidTouchDeleteButton), for: UIControl.Event.touchUpInside)
     }
     
+    /// Setup the style according to the Struct Style
     private func setupStyle() {
         self.contentView.backgroundColor = Style.backgroundColor
         self.label.textColor = Style.titleColor
@@ -118,10 +135,12 @@ class TaskCell: UICollectionViewCell {
     
     // MARK: User actions
     
+    /// Handle user action when the user touch the switch
     @objc func userDidTouchSwitch() {
         self.taskViewModel?.userDidTouchIsDoneSwitch(newValue: self.isDoneSwitch.isOn)
     }
     
+    /// Handle user action when the user touch the delete button
     @objc func userDidTouchDeleteButton() {
         self.taskViewModel?.userDidPressDeleteButton()
     }

@@ -6,6 +6,9 @@
 //  Copyright © 2019 cheerz. All rights reserved.
 //
 
+/// TaskDataController, TaskAPIService, TaskArchiver are never used directly,
+/// they are always used through an interface.
+
 import Foundation
 
 // MARK: - Result
@@ -25,7 +28,7 @@ protocol TaskAPIServiceInterface {
     
     // MARK: Public methods
     
-    func getTasks(success: @escaping APIServiceCompletion)
+    func getTasks(completion: @escaping APIServiceCompletion)
 }
 
 // MARK: - TaskArchiverInterface

@@ -8,6 +8,9 @@
 
 import Foundation
 
+/// TaskViewModel, TaskListViewModel are never used directly,
+/// they are always used through an interface.
+
 // MARK: - TaskListViewModelInterface
 
 protocol TaskListViewModelInterface {
@@ -23,7 +26,7 @@ protocol TaskListViewModelInterface {
     
     // MARK: Read only properties
     
-    var taskViewModel: [TaskViewModel] { get }
+    var taskViewModel: [TaskViewModelInterface] { get }
     var shouldDisplaySpiner: Observable<Bool> { get }
     var shouldDisplayTaskList: Observable<Bool> { get }
     

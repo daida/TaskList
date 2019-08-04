@@ -11,16 +11,20 @@ import UIKit
 
 // MARK: - TaskDetailViewControllerDetailDelegate
 
+/// Used to communicate with the Coordinator
 protocol TaskDetailViewControllerDetailDelegate: class {
     func userDidDeleteTask()
 }
 
 // MARK: - TaskDetailViewController
 
+/// Present the detail of the Task to the user and allow him to
+/// declare the task done and also to delete it
 class TaskDetailViewController: UIViewController {
     
     // MARK: - Style
     
+    /// Represent the graphical Style of the View (color, corner radius, font, etc..)
     private struct Style {
         static let backgroundColor = UIColor.white
         static let textViewBackgroundColor = UIColor.lightGray
@@ -36,20 +40,25 @@ class TaskDetailViewController: UIViewController {
     
     // MARK: Public properties
     
+    /// used to comunicate with the Coordinator
     weak var delegate: TaskDetailViewControllerDetailDelegate? = nil
     
     // MARK: Private properties
     
+    /// the `TaskDetailViewController` stay updated by observing some properties.
+    /// User actions are sent to the viewModel.
     private let taskViewModel: TaskViewModelInterface
     
     // MARK: UIView
     
+    /// Display the task title
     private let titleLabel: UILabel = {
         let dest = UILabel()
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
     
+    /// Display the task text
     private let textView: UITextView = {
         let dest = UITextView()
         dest.textAlignment = .left
@@ -58,18 +67,22 @@ class TaskDetailViewController: UIViewController {
         return dest
     }()
     
+    /// Display a static text "Done"
     private let doneLabel: UILabel = {
         let dest = UILabel()
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
     
+    /// Display if the Task is done or not, it the value of the switch change
+    /// the viewModel is notify.
     private let isDoneSwitch: UISwitch = {
         let dest = UISwitch(frame: .zero)
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
     
+    /// Display a button with the text "DELETE" if the user tap on it the viewModel is notify.
     private let deleteButton: UIButton = {
         let dest = UIButton(type: .custom)
         dest.translatesAutoresizingMaskIntoConstraints = false
@@ -78,6 +91,9 @@ class TaskDetailViewController: UIViewController {
     
     // MARK: Init
     
+    /// Init of the ViewController
+    ///
+    /// - Parameter taskViewModel: Concrete implementation of `TaskViewModelInterface`
     init(taskViewModel: TaskViewModelInterface) {
         self.taskViewModel = taskViewModel
         super.init(nibName: nil, bundle: nil)
@@ -89,6 +105,7 @@ class TaskDetailViewController: UIViewController {
     
     // MARK: Setup
     
+    /// Setup some properties and bind Observable properties
     private func setupModel() {
         self.isDoneSwitch.isOn = self.taskViewModel.done.value
         self.titleLabel.text = self.taskViewModel.title
@@ -102,6 +119,7 @@ class TaskDetailViewController: UIViewController {
         }
     }
     
+    /// Setup the view layout
     private func setupLayout() {
         var constraints = [NSLayoutConstraint]()
         
@@ -135,15 +153,18 @@ class TaskDetailViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
     
+    /// Setup the isDone switch
     private func setupSwitch() {
         self.isDoneSwitch.addTarget(self, action: #selector(handleUserDidTouchSwitch), for: .valueChanged)
     }
     
+    /// Setup the delete button
     private func setupDeleteButton() {
         self.deleteButton.setTitle("DELETE", for: .normal)
         self.deleteButton.addTarget(self, action: #selector(handleUserDidTouchDeleteButton), for: .touchUpInside)
     }
     
+    /// Setup the style according to the `Style` struct
     private func setupStyle() {
         self.view.backgroundColor = Style.backgroundColor
         self.textView.backgroundColor = Style.textViewBackgroundColor
@@ -156,6 +177,7 @@ class TaskDetailViewController: UIViewController {
         self.deleteButton.layer.cornerRadius = Style.deleteButtonCornerRadius
     }
     
+    /// Setup the view hierarchy
     private func setupView() {
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.isDoneSwitch)
@@ -168,10 +190,12 @@ class TaskDetailViewController: UIViewController {
     
     // MARK: User action
     
+   /// Handle user action when the user touch the isDone switch
    @objc private func handleUserDidTouchSwitch() {
         self.taskViewModel.userDidTouchIsDoneSwitch(newValue: self.isDoneSwitch.isOn)
     }
     
+   /// Handle user action when the user touch delete button
     @objc private func handleUserDidTouchDeleteButton() {
         self.taskViewModel.userDidPressDeleteButton()
     }
