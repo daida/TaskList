@@ -176,6 +176,18 @@ class TaskDetailViewController: UIViewController {
         self.deleteButton.layer.cornerRadius = Style.deleteButtonCornerRadius
     }
     
+    //  Setup Accessibility identifier
+    private func setupAccessibility() {
+        self.view.isAccessibilityElement = false
+        self.view.accessibilityIdentifier = "TaskDetail"
+        
+        self.isDoneSwitch.accessibilityIdentifier = "isDone"
+        self.isDoneSwitch.isAccessibilityElement = false
+        
+        self.deleteButton.accessibilityIdentifier = "Delete Detail"
+        self.deleteButton.isAccessibilityElement = false
+    }
+    
     /// Setup the view hierarchy
     private func setupView() {
         self.view.addSubview(self.titleLabel)
@@ -209,5 +221,6 @@ class TaskDetailViewController: UIViewController {
         self.setupSwitch()
         self.setupDeleteButton()
         self.setupStyle()
+        self.setupAccessibility()
     }    
 }

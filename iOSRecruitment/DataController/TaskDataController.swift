@@ -50,6 +50,14 @@ class TaskDataController: TaskDataContollerInterface {
     /// - Parameter completion: Completion closure with a Success / Error `enum` parameter
     func loadTask(completion: @escaping TaskDataControllerLoadTaskHandlerClosure) {
         
+        guard CommandLine.arguments.contains("TEST_UI") == false else {
+            self.apiService.getTasks { remoteTask in
+                self.task = remoteTask
+                DispatchQueue.main.async { completion(.success(task: self.task)) }
+            }
+            return
+        }
+        
         self.archiver.loadTaskFromDisk { localTask in
             
             if let localTask = localTask {

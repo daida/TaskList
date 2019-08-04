@@ -138,6 +138,13 @@ class TaskListViewController: UIViewController {
         self.view.addSubview(self.spiner)
     }
     
+    private func setupAccessibility() {
+        self.view.isAccessibilityElement = false
+        self.view.accessibilityIdentifier = "TaskList"
+        self.collectionView.isAccessibilityElement = false
+        self.collectionView.accessibilityIdentifier = "TaskListCollection"
+    }
+    
     /// Bind some action to Observable property, set the delegate,
     /// And launch the loading process on the viewModel
     private func setupViewModel() {
@@ -236,6 +243,7 @@ class TaskListViewController: UIViewController {
         self.setupResetButton()
         self.setupStyle()
         self.setupStaticText()
+        self.setupAccessibility()
     }
 }
 

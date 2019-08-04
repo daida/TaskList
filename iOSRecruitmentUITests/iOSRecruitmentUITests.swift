@@ -8,27 +8,37 @@
 
 import XCTest
 
+extension XCUIElementQuery {
+    var countForHittables: UInt {
+        return UInt(allElementsBoundByIndex.filter { $0.isHittable }.count)
+    }
+}
+
+
 class iOSRecruitmentUITests: XCTestCase {
 
+    let app = XCUIApplication()
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        self.app.launchArguments = ["TEST_UI"]
+        self.app.launch()
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testDisplayTask() {
+        XCTAssert(self.app.otherElements["TaskList"].waitForExistence(timeout: 5))
+        XCTAssert(self.app.collectionViews["TaskListCollection"].waitForExistence(timeout: 5))
+        self.app.collectionViews["TaskListCollection"].cells.firstMatch.tap()
+        XCTAssert(self.app.otherElements["TaskDetail"].waitForExistence(timeout: 5))
     }
-
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testActivate() {
+        self.app.collectionViews["TaskListCollection"].cells.firstMatch.tap()
+        XCTAssert(self.app.otherElements["TaskDetail"].waitForExistence(timeout: 5))
+        self.app.switches["isDone"].tap()
+        let valueDetail = self.app.switches["isDone"].value as! String
+        app.navigationBars.firstMatch.buttons.firstMatch.tap()
+        let valueList = self.app.collectionViews["TaskListCollection"].cells.firstMatch.switches.firstMatch.value as! String
+        XCTAssert(valueList == valueDetail, "switch have differents values")
     }
 
 }

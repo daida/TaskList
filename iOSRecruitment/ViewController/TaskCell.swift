@@ -133,6 +133,15 @@ class TaskCell: UICollectionViewCell {
         self.contentView.layer.cornerRadius = Style.cellCornerRadius
     }
     
+    /// Setup accesibility identifier
+    private func setupAccessibility() {
+        self.isDoneSwitch.accessibilityIdentifier = "isDone CEll"
+        self.isDoneSwitch.isAccessibilityElement = false
+        
+        self.deleteButton.accessibilityIdentifier = "Delete Button CELL"
+        self.deleteButton.isAccessibilityElement = false
+    }
+    
     // MARK: User actions
     
     /// Handle user action when the user touch the switch
@@ -154,6 +163,7 @@ class TaskCell: UICollectionViewCell {
         self.setupSwitch()
         self.setupDeleteButton()
         self.setupStyle()
+        self.setupAccessibility()
       }
     
     required init?(coder aDecoder: NSCoder) {
