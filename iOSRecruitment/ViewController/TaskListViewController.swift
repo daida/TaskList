@@ -114,8 +114,8 @@ class TaskListViewController: UIViewController {
         // Collection View
         constraints.append(self.collectionView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 10))
         constraints.append(self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor))
-        constraints.append(self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor))
-        constraints.append(self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor))
+        constraints.append(self.collectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor))
+        constraints.append(self.collectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor))
         
         // Spiner
         constraints.append(self.spiner.centerXAnchor.constraint(equalTo: self.view.centerXAnchor))

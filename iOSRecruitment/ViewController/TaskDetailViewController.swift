@@ -124,25 +124,24 @@ class TaskDetailViewController: UIViewController {
         var constraints = [NSLayoutConstraint]()
         
         constraints.append(self.titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10))
+        
         constraints.append(self.titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor))
-        constraints.append(self.titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: self.view.leadingAnchor, constant: 10))
-        constraints.append(self.titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.view.trailingAnchor, constant: -10))
+        constraints.append(self.titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10))
+        constraints.append(self.titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10))
         
         constraints.append(self.textView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 10))
-        constraints.append(self.textView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10))
-        constraints.append(self.textView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10))
+        constraints.append(self.textView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10))
+        constraints.append(self.textView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10))
         
-        
-        constraints.append(self.doneLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10))
+        constraints.append(self.doneLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10))
         constraints.append(self.doneLabel.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -10))
         constraints.append(self.doneLabel.centerYAnchor.constraint(equalTo: self.isDoneSwitch.centerYAnchor))
         
         constraints.append(self.isDoneSwitch.topAnchor.constraint(equalTo: self.textView.bottomAnchor, constant: 10))
         
         constraints.append(self.isDoneSwitch.leadingAnchor.constraint(equalTo: self.doneLabel.trailingAnchor, constant: 10))
-
         
-        constraints.append(self.deleteButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10))
+        constraints.append(self.deleteButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10))
         
         constraints.append(self.deleteButton.widthAnchor.constraint(equalToConstant: 90))
         
@@ -190,16 +189,16 @@ class TaskDetailViewController: UIViewController {
     
     // MARK: User action
     
-   /// Handle user action when the user touch the isDone switch
-   @objc private func handleUserDidTouchSwitch() {
+    /// Handle user action when the user touch the isDone switch
+    @objc private func handleUserDidTouchSwitch() {
         self.taskViewModel.userDidTouchIsDoneSwitch(newValue: self.isDoneSwitch.isOn)
     }
     
-   /// Handle user action when the user touch delete button
+    /// Handle user action when the user touch delete button
     @objc private func handleUserDidTouchDeleteButton() {
         self.taskViewModel.userDidPressDeleteButton()
     }
-
+    
     // MARK: UIViewController override
     
     override func viewDidLoad() {
