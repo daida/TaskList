@@ -8,18 +8,21 @@
 
 import Foundation
 
-class TaskViewModel: Equatable {
+extension TaskViewModel: Equatable {
     static func == (lhs: TaskViewModel, rhs: TaskViewModel) -> Bool {
         return lhs.task == rhs.task
     }
-    
+}
+
+class TaskViewModel {
+ 
     private(set) var title: String
-    let done: Observable<Bool>
+    private(set) var done: Observable<Bool>
     private(set) var text: String
-    
     private(set) var shouldBePresented = Observable<Bool>(true)
 
     private let dataController: TaskDataController
+
     private var task: Task {
         didSet {
             self.title = self.task.title
@@ -55,14 +58,13 @@ protocol TaskListViewModelDelegate: class {
 }
 
 class TaskListViewModel {
-    
-    var taskViewModel: [TaskViewModel] = []
-    
     weak var delegate: TaskListViewModelDelegate? = nil
     
-    var shouldDisplaySpiner: Observable<Bool> = Observable(true)
+    private(set) var taskViewModel: [TaskViewModel] = []
     
-    var shouldDisplayTaskList: Observable<Bool> = Observable(false)
+    private(set) var shouldDisplaySpiner: Observable<Bool> = Observable(true)
+    
+    private(set) var shouldDisplayTaskList: Observable<Bool> = Observable(false)
     
     let dataController: TaskDataController
     
@@ -70,13 +72,13 @@ class TaskListViewModel {
         self.dataController = dataController
     }
     
-    func handleDeleteTaskViewModel(taskViewModel: TaskViewModel) {
+    private func handleDeleteTaskViewModel(taskViewModel: TaskViewModel) {
         guard let index = (self.taskViewModel.firstIndex { $0 == taskViewModel }) else { return }
         self.taskViewModel.remove(at: index)
         self.delegate?.userWantDeleteIndexPath(IndexPath(item: index, section: 0))
     }
     
-    func generateTaskViewModel(task: [Task]) {
+    private func generateTaskViewModel(task: [Task]) {
         self.taskViewModel = task.map { TaskViewModel(task: $0, dataController: self.dataController) }
         self.taskViewModel.forEach { taskModel in
             taskModel.shouldBePresented.bind(observer: { [weak self] _, newValue in

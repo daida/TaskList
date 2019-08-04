@@ -15,10 +15,10 @@ enum Result {
 
 class TaskDataController {
 
-    let apiService = TaskAPIService()
-    let archiver = TaskArchiver()
+    private let apiService = TaskAPIService()
+    private let archiver = TaskArchiver()
     
-    var task: [Task] = []
+    private(set) var task: [Task] = []
     
     func loadTask(completion: @escaping (Result) -> Void) {
         

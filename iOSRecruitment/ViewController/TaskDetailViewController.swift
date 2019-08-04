@@ -15,7 +15,7 @@ protocol TaskDetailViewControllerDetailDelegate: class {
 
 class TaskDetailViewController: UIViewController {
     
-    struct Style {
+    private struct Style {
         static let backgroundColor = UIColor.white
         static let textViewBackgroundColor = UIColor.lightGray
         static let textViewTextColor = UIColor.black
@@ -28,17 +28,17 @@ class TaskDetailViewController: UIViewController {
         static let deleteButtonCornerRadius: CGFloat = 7.0
     }
     
-    let taskViewModel: TaskViewModel
+    private let taskViewModel: TaskViewModel
     
     weak var delegate: TaskDetailViewControllerDetailDelegate? = nil
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let dest = UILabel()
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
     
-    let textView: UITextView = {
+    private let textView: UITextView = {
         let dest = UITextView()
         dest.textAlignment = .left
         dest.isEditable = false
@@ -46,19 +46,19 @@ class TaskDetailViewController: UIViewController {
         return dest
     }()
     
-    let doneLabel: UILabel = {
+    private let doneLabel: UILabel = {
         let dest = UILabel()
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
     
-    let isDoneSwitch: UISwitch = {
+    private let isDoneSwitch: UISwitch = {
         let dest = UISwitch(frame: .zero)
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
     
-    let deleteButton: UIButton = {
+    private let deleteButton: UIButton = {
         let dest = UIButton(type: .custom)
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
@@ -73,7 +73,7 @@ class TaskDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupModel() {
+    private func setupModel() {
         self.isDoneSwitch.isOn = self.taskViewModel.done.value
         self.titleLabel.text = self.taskViewModel.title
         self.textView.text = self.taskViewModel.text
@@ -87,7 +87,7 @@ class TaskDetailViewController: UIViewController {
         }
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         var constraints = [NSLayoutConstraint]()
         
         constraints.append(self.titleLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10))
@@ -120,7 +120,7 @@ class TaskDetailViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
     
-    func setupView() {
+    private func setupView() {
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.isDoneSwitch)
         self.view.addSubview(self.textView)
@@ -147,7 +147,7 @@ class TaskDetailViewController: UIViewController {
         self.deleteButton.addTarget(self, action: #selector(handleUserDidTouchDeleteButton), for: .touchUpInside)
     }
     
-    func setupStyle() {
+    private func setupStyle() {
         self.view.backgroundColor = Style.backgroundColor
         self.textView.backgroundColor = Style.textViewBackgroundColor
         self.deleteButton.setTitleColor(Style.deleteTextColor, for: .normal)

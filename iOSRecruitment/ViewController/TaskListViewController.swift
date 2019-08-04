@@ -15,23 +15,23 @@ protocol TaskListViewControllerDelegate: class {
 
 class TaskListViewController: UIViewController {
     
-    struct Style {
+    private struct Style {
         static let backgroundColor = UIColor.white
         static let collectionViewBackgroundColor = UIColor.white
         static let titleTextColor = UIColor.black
     }
     
-    let viewModel: TaskListViewModel
+    private let viewModel: TaskListViewModel
     
     weak var delegate: TaskListViewControllerDelegate?
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let dest = UILabel(frame: .zero)
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
     
-    let collectionView: UICollectionView = {
+    private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 8
@@ -40,7 +40,7 @@ class TaskListViewController: UIViewController {
         return dest
     }()
     
-    let spiner: UIActivityIndicatorView = {
+    private let spiner: UIActivityIndicatorView = {
         let spiner = UIActivityIndicatorView(style: .gray)
         spiner.translatesAutoresizingMaskIntoConstraints = false
         return spiner
@@ -55,19 +55,19 @@ class TaskListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupCollectionView() {
+    private func setupCollectionView() {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         self.collectionView.register(TaskCell.self, forCellWithReuseIdentifier: TaskCell.cellReuseIdentifer)
     }
     
-    func setupResetButton() {
+    private func setupResetButton() {
         let logoutBarButtonItem = UIBarButtonItem(title: "Reset", style: .done, target: self, action: #selector(userDidTapOnResetButton))
         
         self.navigationItem.leftBarButtonItem  = logoutBarButtonItem
     }
     
-    func setupLayout() {
+    private func setupLayout() {
         // Label
         var constraints = [NSLayoutConstraint]()
         
@@ -87,13 +87,13 @@ class TaskListViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
     
-    func setupStyle() {
+    private func setupStyle() {
         self.view.backgroundColor = Style.backgroundColor
         self.collectionView.backgroundColor = Style.collectionViewBackgroundColor
         self.titleLabel.textColor = Style.titleTextColor
     }
     
-    func setupView() {
+    private func setupView() {
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.collectionView)
         self.view.addSubview(self.spiner)
@@ -129,7 +129,7 @@ class TaskListViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func setupViewModel() {
+    private func setupViewModel() {
         
         self.viewModel.shouldDisplaySpiner.bind { [weak self] _, result in
             guard let `self` = self else { return }

@@ -16,8 +16,8 @@ protocol Coordinator {
 
 class TaskCoordinator: Coordinator {
     
-    let navigationController: UINavigationController
-    let dataController: TaskDataController = TaskDataController()
+    private let navigationController: UINavigationController
+    private let dataController: TaskDataController = TaskDataController()
     
     
     init(navigationController: UINavigationController) {

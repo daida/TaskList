@@ -14,18 +14,17 @@ struct TaskArchiver {
     typealias TaskArchiverSavingHandlerClosure = (Bool) -> Void
     typealias TaskArchiverResetCacheHandlerClosure = (Bool) -> Void
     
-    let jsonEncoder = JSONEncoder()
-    let jsonDecoder = JSONDecoder()
-    let dispatchQueue = DispatchQueue(label: "TaskArchiver", qos: DispatchQoS.userInitiated)
+    private let jsonEncoder = JSONEncoder()
+    private let jsonDecoder = JSONDecoder()
+    private let dispatchQueue = DispatchQueue(label: "TaskArchiver", qos: DispatchQoS.userInitiated)
     
-    let archiveFileURL: URL = {
+    private let archiveFileURL: URL = {
         do {
             let dest = try FileManager.default.url(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask, appropriateFor: nil, create: true)
             return dest.appendingPathComponent("tasks.json")
         } catch {
             fatalError("Can't retrive document path")
         }
-        
     }()
     
     func loadTaskFromDisk(completion: @escaping TaskArchiverLoadingHandlerClosure) {

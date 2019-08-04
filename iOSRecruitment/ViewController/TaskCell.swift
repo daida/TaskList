@@ -11,7 +11,7 @@ import UIKit
 
 class TaskCell: UICollectionViewCell {
     
-    struct Style {
+    private struct Style {
         static let backgroundColor = UIColor.lightGray
         static let titleColor = UIColor.white
         static let deleteButtonTextColor = UIColor.red
@@ -21,20 +21,20 @@ class TaskCell: UICollectionViewCell {
     
     static let cellReuseIdentifer = String(describing: self)
     
-    let label: UILabel = {
+    private let label: UILabel = {
         let dest = UILabel(frame: .zero)
         dest.translatesAutoresizingMaskIntoConstraints = false
         return dest
     }()
 
-    let isDoneSwitch: UISwitch = {
+    private let isDoneSwitch: UISwitch = {
         let dest = UISwitch()
         dest.translatesAutoresizingMaskIntoConstraints = false
         dest.setContentCompressionResistancePriority(UILayoutPriority.required, for: NSLayoutConstraint.Axis.horizontal)
         return dest
     }()
     
-    let deleteButton: UIButton = {
+    private let deleteButton: UIButton = {
         let dest = UIButton(type: .custom)
         dest.setContentCompressionResistancePriority(UILayoutPriority.required, for: .horizontal)
         dest.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +42,6 @@ class TaskCell: UICollectionViewCell {
     }()
     
     private weak var taskViewModel: TaskViewModel?
-    
 
     override func prepareForReuse() {
         self.taskViewModel?.done.clearAllObserver()
@@ -59,7 +58,7 @@ class TaskCell: UICollectionViewCell {
         }
     }
 
-    func setupLayout() {
+    private func setupLayout() {
         var constraints = [NSLayoutConstraint]()
         
         constraints.append(self.label.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10))
@@ -75,7 +74,7 @@ class TaskCell: UICollectionViewCell {
         NSLayoutConstraint.activate(constraints)
     }
     
-    func setupView() {
+    private func setupView() {
         self.contentView.addSubview(self.label)
         self.contentView.addSubview(self.isDoneSwitch)
         self.contentView.addSubview(self.deleteButton)
@@ -89,16 +88,16 @@ class TaskCell: UICollectionViewCell {
         self.taskViewModel?.userDidPressDeleteButton()
     }
     
-    func setupSwitch() {
+    private func setupSwitch() {
         self.isDoneSwitch.addTarget(self, action: #selector(userDidTouchSwitch), for: .valueChanged)
     }
     
-    func setupDeleteButton() {
+    private func setupDeleteButton() {
         self.deleteButton.setTitle("DELETE", for: .normal)
         self.deleteButton.addTarget(self, action: #selector(userDidTouchDeleteButton), for: UIControl.Event.touchUpInside)
     }
     
-    func setupStyle() {
+    private func setupStyle() {
         self.contentView.backgroundColor = Style.backgroundColor
         self.label.textColor = Style.titleColor
         self.deleteButton.setTitleColor(Style.deleteButtonTextColor, for: .normal)

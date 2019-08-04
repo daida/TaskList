@@ -1,10 +1,12 @@
 import Foundation
 
 struct TaskAPIService {
+    
+    let dispatchQueue = DispatchQueue(label: "taskApiService", qos: .userInitiated)
 
     func getTasks(success: @escaping([Task]) -> Void) {
         let random = 3.0 / Double.random(in: 2.0 ... 6.0)
-        DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + random) {
+        self.dispatchQueue.asyncAfter(deadline: .now() + random) {
             success(self.generateMockedList())
         }
     }
