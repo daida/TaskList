@@ -1,8 +1,8 @@
 import Foundation
 
-struct TaskAPIService {
+struct TaskAPIService: TaskAPIServiceInterface {
     
-    let dispatchQueue = DispatchQueue(label: "taskApiService", qos: .userInitiated)
+    private let dispatchQueue = DispatchQueue(label: "taskApiService", qos: .userInitiated)
 
     func getTasks(success: @escaping([Task]) -> Void) {
         let random = 3.0 / Double.random(in: 2.0 ... 6.0)

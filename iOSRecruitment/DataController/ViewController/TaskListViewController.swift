@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol TaskListViewControllerDelegate: class {
-    func userDidTapOnTask(task: TaskViewModel)
+    func userDidTapOnTask(task: TaskViewModelInterface)
 }
 
 class TaskListViewController: UIViewController {
@@ -21,7 +21,7 @@ class TaskListViewController: UIViewController {
         static let titleTextColor = UIColor.black
     }
     
-    private let viewModel: TaskListViewModel
+    private var viewModel: TaskListViewModelInterface
     
     weak var delegate: TaskListViewControllerDelegate?
     
@@ -46,7 +46,7 @@ class TaskListViewController: UIViewController {
         return spiner
     }()
     
-    init(viewModel: TaskListViewModel) {
+    init(viewModel: TaskListViewModelInterface) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

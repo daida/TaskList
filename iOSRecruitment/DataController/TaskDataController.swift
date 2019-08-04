@@ -8,19 +8,19 @@
 
 import Foundation
 
-enum Result {
-    case success(task: [Task])
-    case error
-}
+class TaskDataController: TaskDataContollerInterface {
 
-class TaskDataController {
-
-    private let apiService = TaskAPIService()
-    private let archiver = TaskArchiver()
+    private let apiService: TaskAPIServiceInterface
+    private let archiver: TaskArchiverInterface
     
     private(set) var task: [Task] = []
     
-    func loadTask(completion: @escaping (Result) -> Void) {
+    init(apiService: TaskAPIServiceInterface, archiver: TaskArchiverInterface) {
+        self.apiService = apiService
+        self.archiver = archiver
+    }
+    
+    func loadTask(completion: @escaping TaskDataControllerLoadTaskHandlerClosure) {
         
         self.archiver.loadTaskFromDisk { localTask in
             
@@ -69,7 +69,7 @@ class TaskDataController {
         return self.task[index]
     }
     
-    func saveTask(completion: @escaping (Bool) -> Void) {
+    private func saveTask(completion: @escaping (Bool) -> Void) {
         self.archiver.saveTask(task: self.task, completion: completion)
      }
     

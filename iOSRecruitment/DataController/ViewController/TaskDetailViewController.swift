@@ -28,7 +28,7 @@ class TaskDetailViewController: UIViewController {
         static let deleteButtonCornerRadius: CGFloat = 7.0
     }
     
-    private let taskViewModel: TaskViewModel
+    private let taskViewModel: TaskViewModelInterface
     
     weak var delegate: TaskDetailViewControllerDetailDelegate? = nil
     
@@ -64,7 +64,7 @@ class TaskDetailViewController: UIViewController {
         return dest
     }()
     
-    init(taskViewModel: TaskViewModel) {
+    init(taskViewModel: TaskViewModelInterface) {
         self.taskViewModel = taskViewModel
         super.init(nibName: nil, bundle: nil)
     }

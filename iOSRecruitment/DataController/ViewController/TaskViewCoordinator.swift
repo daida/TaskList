@@ -16,8 +16,13 @@ protocol Coordinator {
 
 class TaskCoordinator: Coordinator {
     
-    private let navigationController: UINavigationController
-    private let dataController: TaskDataController = TaskDataController()
+    let navigationController: UINavigationController
+    
+    private let dataController: TaskDataContollerInterface = {
+        let apiService = TaskAPIService()
+        let archiver = TaskArchiver()
+        return TaskDataController(apiService: apiService, archiver: archiver)
+    }()
     
     
     init(navigationController: UINavigationController) {
@@ -33,7 +38,7 @@ class TaskCoordinator: Coordinator {
 }
 
 extension TaskCoordinator: TaskListViewControllerDelegate {
-    func userDidTapOnTask(task: TaskViewModel) {
+    func userDidTapOnTask(task: TaskViewModelInterface) {
         let detailViewController = TaskDetailViewController(taskViewModel: task)
         detailViewController.delegate = self
         self.navigationController.pushViewController(detailViewController, animated: true)

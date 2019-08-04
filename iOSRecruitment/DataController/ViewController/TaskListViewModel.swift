@@ -14,14 +14,14 @@ extension TaskViewModel: Equatable {
     }
 }
 
-class TaskViewModel {
+final class TaskViewModel: TaskViewModelInterface {
  
     private(set) var title: String
     private(set) var done: Observable<Bool>
     private(set) var text: String
     private(set) var shouldBePresented = Observable<Bool>(true)
 
-    private let dataController: TaskDataController
+    private let dataController: TaskDataContollerInterface
 
     private var task: Task {
         didSet {
@@ -31,7 +31,7 @@ class TaskViewModel {
         }
     }
     
-    init(task: Task, dataController: TaskDataController) {
+    init(task: Task, dataController: TaskDataContollerInterface) {
         self.title = task.title
         self.done = Observable<Bool>(task.done)
         self.text = task.text
@@ -48,7 +48,6 @@ class TaskViewModel {
             self.shouldBePresented.value = false
         }
     }
-    
 }
 
 protocol TaskListViewModelDelegate: class {
@@ -57,7 +56,7 @@ protocol TaskListViewModelDelegate: class {
     func displayErrorView()
 }
 
-class TaskListViewModel {
+final class TaskListViewModel: TaskListViewModelInterface {
     weak var delegate: TaskListViewModelDelegate? = nil
     
     private(set) var taskViewModel: [TaskViewModel] = []
@@ -66,9 +65,9 @@ class TaskListViewModel {
     
     private(set) var shouldDisplayTaskList: Observable<Bool> = Observable(false)
     
-    let dataController: TaskDataController
+    private let dataController: TaskDataContollerInterface
     
-    init(dataController: TaskDataController) {
+    init(dataController: TaskDataContollerInterface) {
         self.dataController = dataController
     }
     
@@ -98,7 +97,7 @@ class TaskListViewModel {
         }
     }
     
-    func loadTask() -> Void {
+    func loadTask() {
         
         self.shouldDisplaySpiner.value = true
         self.shouldDisplayTaskList.value = false

@@ -8,11 +8,7 @@
 
 import Foundation
 
-struct TaskArchiver {
-    
-    typealias TaskArchiverLoadingHandlerClosure = ([Task]?) -> Void
-    typealias TaskArchiverSavingHandlerClosure = (Bool) -> Void
-    typealias TaskArchiverResetCacheHandlerClosure = (Bool) -> Void
+struct TaskArchiver: TaskArchiverInterface {
     
     private let jsonEncoder = JSONEncoder()
     private let jsonDecoder = JSONDecoder()
