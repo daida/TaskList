@@ -24,7 +24,29 @@
 		A155200E22F6EB4200F30901 /* TaskViewModelInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155200D22F6EB4100F30901 /* TaskViewModelInterface.swift */; };
 		A155201022F6F4FF00F30901 /* TaskApiServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155200F22F6F4FF00F30901 /* TaskApiServiceMock.swift */; };
 		A155201222F6F73000F30901 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155201122F6F73000F30901 /* TaskViewModel.swift */; };
+		A155201B22F729F300F30901 /* iOSRecruitmentUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155201A22F729F300F30901 /* iOSRecruitmentUITests.swift */; };
+		A155202922F72A2600F30901 /* TaskListViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155202822F72A2600F30901 /* TaskListViewModelTest.swift */; };
+		A155203122F72AC500F30901 /* DataControllerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155203022F72AC500F30901 /* DataControllerMock.swift */; };
+		A155203322F7359900F30901 /* TaskListViewModelDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155203222F7359900F30901 /* TaskListViewModelDelegateMock.swift */; };
+		A155203522F7360A00F30901 /* TaskViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155203422F7360A00F30901 /* TaskViewModelTest.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A155201D22F729F300F30901 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09D0056A2293F1BB00477097 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09D005712293F1BB00477097;
+			remoteInfo = iOSRecruitment;
+		};
+		A155202B22F72A2600F30901 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09D0056A2293F1BB00477097 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09D005712293F1BB00477097;
+			remoteInfo = iOSRecruitment;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		09D005722293F1BB00477097 /* iOSRecruitment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSRecruitment.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -46,10 +68,33 @@
 		A155200D22F6EB4100F30901 /* TaskViewModelInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModelInterface.swift; sourceTree = "<group>"; };
 		A155200F22F6F4FF00F30901 /* TaskApiServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskApiServiceMock.swift; sourceTree = "<group>"; };
 		A155201122F6F73000F30901 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		A155201822F729F300F30901 /* iOSRecruitmentUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSRecruitmentUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A155201A22F729F300F30901 /* iOSRecruitmentUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSRecruitmentUITests.swift; sourceTree = "<group>"; };
+		A155201C22F729F300F30901 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A155202622F72A2600F30901 /* iOSRecruitmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSRecruitmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A155202822F72A2600F30901 /* TaskListViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModelTest.swift; sourceTree = "<group>"; };
+		A155202A22F72A2600F30901 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A155203022F72AC500F30901 /* DataControllerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataControllerMock.swift; sourceTree = "<group>"; };
+		A155203222F7359900F30901 /* TaskListViewModelDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewModelDelegateMock.swift; sourceTree = "<group>"; };
+		A155203422F7360A00F30901 /* TaskViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModelTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		09D0056F2293F1BB00477097 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A155201522F729F300F30901 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A155202322F72A2600F30901 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -63,6 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				09D005742293F1BB00477097 /* iOSRecruitment */,
+				A155201922F729F300F30901 /* iOSRecruitmentUITests */,
+				A155202722F72A2600F30901 /* iOSRecruitmentTests */,
 				09D005732293F1BB00477097 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,6 +118,8 @@
 			isa = PBXGroup;
 			children = (
 				09D005722293F1BB00477097 /* iOSRecruitment.app */,
+				A155201822F729F300F30901 /* iOSRecruitmentUITests.xctest */,
+				A155202622F72A2600F30901 /* iOSRecruitmentTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -124,6 +173,27 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		A155201922F729F300F30901 /* iOSRecruitmentUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A155201A22F729F300F30901 /* iOSRecruitmentUITests.swift */,
+				A155201C22F729F300F30901 /* Info.plist */,
+			);
+			path = iOSRecruitmentUITests;
+			sourceTree = "<group>";
+		};
+		A155202722F72A2600F30901 /* iOSRecruitmentTests */ = {
+			isa = PBXGroup;
+			children = (
+				A155202822F72A2600F30901 /* TaskListViewModelTest.swift */,
+				A155203422F7360A00F30901 /* TaskViewModelTest.swift */,
+				A155203022F72AC500F30901 /* DataControllerMock.swift */,
+				A155203222F7359900F30901 /* TaskListViewModelDelegateMock.swift */,
+				A155202A22F72A2600F30901 /* Info.plist */,
+			);
+			path = iOSRecruitmentTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -144,18 +214,62 @@
 			productReference = 09D005722293F1BB00477097 /* iOSRecruitment.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A155201722F729F300F30901 /* iOSRecruitmentUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A155201F22F729F400F30901 /* Build configuration list for PBXNativeTarget "iOSRecruitmentUITests" */;
+			buildPhases = (
+				A155201422F729F300F30901 /* Sources */,
+				A155201522F729F300F30901 /* Frameworks */,
+				A155201622F729F300F30901 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A155201E22F729F300F30901 /* PBXTargetDependency */,
+			);
+			name = iOSRecruitmentUITests;
+			productName = iOSRecruitmentUITests;
+			productReference = A155201822F729F300F30901 /* iOSRecruitmentUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		A155202522F72A2600F30901 /* iOSRecruitmentTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A155202D22F72A2600F30901 /* Build configuration list for PBXNativeTarget "iOSRecruitmentTests" */;
+			buildPhases = (
+				A155202222F72A2600F30901 /* Sources */,
+				A155202322F72A2600F30901 /* Frameworks */,
+				A155202422F72A2600F30901 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A155202C22F72A2600F30901 /* PBXTargetDependency */,
+			);
+			name = iOSRecruitmentTests;
+			productName = iOSRecruitmentTests;
+			productReference = A155202622F72A2600F30901 /* iOSRecruitmentTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		09D0056A2293F1BB00477097 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = cheerz;
 				TargetAttributes = {
 					09D005712293F1BB00477097 = {
 						CreatedOnToolsVersion = 10.2.1;
+					};
+					A155201722F729F300F30901 = {
+						CreatedOnToolsVersion = 10.3;
+						TestTargetID = 09D005712293F1BB00477097;
+					};
+					A155202522F72A2600F30901 = {
+						CreatedOnToolsVersion = 10.3;
+						TestTargetID = 09D005712293F1BB00477097;
 					};
 				};
 			};
@@ -173,6 +287,8 @@
 			projectRoot = "";
 			targets = (
 				09D005712293F1BB00477097 /* iOSRecruitment */,
+				A155201722F729F300F30901 /* iOSRecruitmentUITests */,
+				A155202522F72A2600F30901 /* iOSRecruitmentTests */,
 			);
 		};
 /* End PBXProject section */
@@ -184,6 +300,20 @@
 			files = (
 				09D005802293F1BF00477097 /* LaunchScreen.storyboard in Resources */,
 				09D0057D2293F1BF00477097 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A155201622F729F300F30901 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A155202422F72A2600F30901 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,7 +342,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A155201422F729F300F30901 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A155201B22F729F300F30901 /* iOSRecruitmentUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A155202222F72A2600F30901 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A155202922F72A2600F30901 /* TaskListViewModelTest.swift in Sources */,
+				A155203522F7360A00F30901 /* TaskViewModelTest.swift in Sources */,
+				A155203322F7359900F30901 /* TaskListViewModelDelegateMock.swift in Sources */,
+				A155203122F72AC500F30901 /* DataControllerMock.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A155201E22F729F300F30901 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 09D005712293F1BB00477097 /* iOSRecruitment */;
+			targetProxy = A155201D22F729F300F30901 /* PBXContainerItemProxy */;
+		};
+		A155202C22F72A2600F30901 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 09D005712293F1BB00477097 /* iOSRecruitment */;
+			targetProxy = A155202B22F72A2600F30901 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		09D0057E2293F1BF00477097 /* LaunchScreen.storyboard */ = {
@@ -346,8 +508,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FMW43WX3AR;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = iOSRecruitment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -355,6 +518,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cheerz.iOSRecruitment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,8 +528,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FMW43WX3AR;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = iOSRecruitment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -373,8 +538,87 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cheerz.iOSRecruitment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A155202022F729F400F30901 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = iOSRecruitmentUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cheerz.iOSRecruitmentUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = iOSRecruitment;
+			};
+			name = Debug;
+		};
+		A155202122F729F400F30901 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = iOSRecruitmentUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cheerz.iOSRecruitmentUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = iOSRecruitment;
+			};
+			name = Release;
+		};
+		A155202E22F72A2600F30901 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = iOSRecruitmentTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cheerz.iOSRecruitmentTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOSRecruitment.app/iOSRecruitment";
+			};
+			name = Debug;
+		};
+		A155202F22F72A2600F30901 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = iOSRecruitmentTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.cheerz.iOSRecruitmentTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOSRecruitment.app/iOSRecruitment";
 			};
 			name = Release;
 		};
@@ -395,6 +639,24 @@
 			buildConfigurations = (
 				09D005852293F1BF00477097 /* Debug */,
 				09D005862293F1BF00477097 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A155201F22F729F400F30901 /* Build configuration list for PBXNativeTarget "iOSRecruitmentUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A155202022F729F400F30901 /* Debug */,
+				A155202122F729F400F30901 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A155202D22F72A2600F30901 /* Build configuration list for PBXNativeTarget "iOSRecruitmentTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A155202E22F72A2600F30901 /* Debug */,
+				A155202F22F72A2600F30901 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
