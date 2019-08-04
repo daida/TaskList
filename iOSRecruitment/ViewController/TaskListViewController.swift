@@ -15,6 +15,12 @@ protocol TaskListViewControllerDelegate: class {
 
 class TaskListViewController: UIViewController {
     
+    struct Style {
+        static let backgroundColor = UIColor.white
+        static let collectionViewBackgroundColor = UIColor.white
+        static let titleTextColor = UIColor.black
+    }
+    
     let viewModel: TaskListViewModel
     
     weak var delegate: TaskListViewControllerDelegate?
@@ -81,14 +87,19 @@ class TaskListViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
     
+    func setupStyle() {
+        self.view.backgroundColor = Style.backgroundColor
+        self.collectionView.backgroundColor = Style.collectionViewBackgroundColor
+        self.titleLabel.textColor = Style.titleTextColor
+    }
+    
     func setupView() {
         self.view.addSubview(self.titleLabel)
         self.view.addSubview(self.collectionView)
         self.view.addSubview(self.spiner)
-        self.view.backgroundColor = UIColor.white
-        self.collectionView.backgroundColor = UIColor.clear
-        self.titleLabel.text = "TUTU"
-        self.titleLabel.backgroundColor = UIColor.purple
+        
+        self.titleLabel.text = "Display the Task List"
+        self.title = "Tasks List"
     }
     
     private func showSpiner() {
@@ -164,8 +175,7 @@ class TaskListViewController: UIViewController {
         self.setupViewModel()
         self.setupCollectionView()
         self.setupResetButton()
-        
-        self.title = "Task List"
+        self.setupStyle()
     }
 }
 
@@ -201,7 +211,7 @@ extension TaskListViewController: UICollectionViewDelegate {
 
 extension TaskListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 35)
+        return CGSize(width: collectionView.frame.width - 20, height: 50)
     }
 }
 

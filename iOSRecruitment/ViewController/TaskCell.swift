@@ -11,6 +11,14 @@ import UIKit
 
 class TaskCell: UICollectionViewCell {
     
+    struct Style {
+        static let backgroundColor = UIColor.lightGray
+        static let titleColor = UIColor.white
+        static let deleteButtonTextColor = UIColor.red
+        static let deleteButtonFont = UIFont.boldSystemFont(ofSize: 18)
+        static let cellCornerRadius: CGFloat = 12.0
+    }
+    
     static let cellReuseIdentifer = String(describing: self)
     
     let label: UILabel = {
@@ -71,9 +79,6 @@ class TaskCell: UICollectionViewCell {
         self.contentView.addSubview(self.label)
         self.contentView.addSubview(self.isDoneSwitch)
         self.contentView.addSubview(self.deleteButton)
-        self.backgroundColor = UIColor.blue
-        self.contentView.clipsToBounds = true
-        self.deleteButton.setTitle("DELETE", for: UIControl.State.normal)
     }
     
     @objc func userDidTouchSwitch() {
@@ -89,7 +94,17 @@ class TaskCell: UICollectionViewCell {
     }
     
     func setupDeleteButton() {
+        self.deleteButton.setTitle("DELETE", for: .normal)
         self.deleteButton.addTarget(self, action: #selector(userDidTouchDeleteButton), for: UIControl.Event.touchUpInside)
+    }
+    
+    func setupStyle() {
+        self.contentView.backgroundColor = Style.backgroundColor
+        self.label.textColor = Style.titleColor
+        self.deleteButton.setTitleColor(Style.deleteButtonTextColor, for: .normal)
+        self.contentView.clipsToBounds = true
+        self.deleteButton.titleLabel?.font = Style.deleteButtonFont
+        self.contentView.layer.cornerRadius = Style.cellCornerRadius
     }
     
     override init(frame: CGRect) {
@@ -98,7 +113,8 @@ class TaskCell: UICollectionViewCell {
         self.setupLayout()
         self.setupSwitch()
         self.setupDeleteButton()
-    }
+        self.setupStyle()
+      }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
