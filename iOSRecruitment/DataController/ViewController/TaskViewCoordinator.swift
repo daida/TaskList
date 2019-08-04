@@ -9,14 +9,22 @@
 import Foundation
 import UIKit
 
+// MARK: - Coordinator
+
 protocol Coordinator {
     var navigationController: UINavigationController { get }
     func start()
 }
 
+// MARK: - TaskCoordinator
+
 class TaskCoordinator: Coordinator {
     
+    // MARK: Public properties
+    
     let navigationController: UINavigationController
+    
+    // MARK: Private properties
     
     private let dataController: TaskDataContollerInterface = {
         let apiService = TaskAPIService()
@@ -24,10 +32,13 @@ class TaskCoordinator: Coordinator {
         return TaskDataController(apiService: apiService, archiver: archiver)
     }()
     
+    // MARK: Init
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
+    
+    // MARK: Public methods
     
     func start() {
         let viewModel = TaskListViewModel(dataController: self.dataController)
@@ -37,6 +48,8 @@ class TaskCoordinator: Coordinator {
     }
 }
 
+// MARK: - TaskListViewControllerDelegate
+
 extension TaskCoordinator: TaskListViewControllerDelegate {
     func userDidTapOnTask(task: TaskViewModelInterface) {
         let detailViewController = TaskDetailViewController(taskViewModel: task)
@@ -44,6 +57,7 @@ extension TaskCoordinator: TaskListViewControllerDelegate {
         self.navigationController.pushViewController(detailViewController, animated: true)
     }
 }
+// MARK: - TaskDetailViewControllerDetailDelegate
 
 extension TaskCoordinator: TaskDetailViewControllerDetailDelegate {
     func userDidDeleteTask() {

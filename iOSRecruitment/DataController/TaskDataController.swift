@@ -8,17 +8,27 @@
 
 import Foundation
 
+// MARK: - TaskDataController
+
 class TaskDataController: TaskDataContollerInterface {
 
+    // MARK: Private properties
+    
     private let apiService: TaskAPIServiceInterface
     private let archiver: TaskArchiverInterface
     
+    // MARK: Public properties
+    
     private(set) var task: [Task] = []
+    
+    // MARK: Init
     
     init(apiService: TaskAPIServiceInterface, archiver: TaskArchiverInterface) {
         self.apiService = apiService
         self.archiver = archiver
     }
+    
+    // MARK: Public methods
     
     func loadTask(completion: @escaping TaskDataControllerLoadTaskHandlerClosure) {
         
@@ -69,12 +79,14 @@ class TaskDataController: TaskDataContollerInterface {
         return self.task[index]
     }
     
-    private func saveTask(completion: @escaping (Bool) -> Void) {
-        self.archiver.saveTask(task: self.task, completion: completion)
-     }
-    
     func resetTask(completion: @escaping ((Bool) -> Void)) {
         self.archiver.deleteCache(completion: completion)
+    }
+    
+    // MARK: Private methods
+    
+    private func saveTask(completion: @escaping (Bool) -> Void) {
+        self.archiver.saveTask(task: self.task, completion: completion)
     }
     
 }

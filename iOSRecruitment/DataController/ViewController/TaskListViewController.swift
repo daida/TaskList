@@ -9,21 +9,35 @@
 import Foundation
 import UIKit
 
+// MARK: - TaskListViewControllerDelegate
+
 protocol TaskListViewControllerDelegate: class {
     func userDidTapOnTask(task: TaskViewModelInterface)
 }
 
+// MARK: - TaskListViewController
+
 class TaskListViewController: UIViewController {
-    
+
+    // MARK: - Style
+
     private struct Style {
         static let backgroundColor = UIColor.white
         static let collectionViewBackgroundColor = UIColor.white
         static let titleTextColor = UIColor.black
     }
+
+    // MARK: Public properties
+    
+    weak var delegate: TaskListViewControllerDelegate?
+    
+    // MARK: Private properties
     
     private var viewModel: TaskListViewModelInterface
     
-    weak var delegate: TaskListViewControllerDelegate?
+    // MARK: Private properties
+    
+    // MARK: UIView
     
     private let titleLabel: UILabel = {
         let dest = UILabel(frame: .zero)
@@ -46,6 +60,8 @@ class TaskListViewController: UIViewController {
         return spiner
     }()
     
+    // MARK: Init
+    
     init(viewModel: TaskListViewModelInterface) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -54,6 +70,10 @@ class TaskListViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: Private methods
+    
+    // MARK: Setup
     
     private func setupCollectionView() {
         self.collectionView.dataSource = self
@@ -102,6 +122,36 @@ class TaskListViewController: UIViewController {
         self.title = "Tasks List"
     }
     
+    private func setupViewModel() {
+        
+        self.viewModel.shouldDisplaySpiner.bind { [weak self] _, result in
+            guard let `self` = self else { return }
+            DispatchQueue.main.async { self.handleSpinerDisplay(result: result) }
+        }
+        
+        self.handleSpinerDisplay(result: self.viewModel.shouldDisplaySpiner.value)
+        
+        self.viewModel.shouldDisplayTaskList.bind { [weak self] _, result in
+            
+            DispatchQueue.main.async {
+                guard let `self` = self else { return }
+                
+                UIView.animate(withDuration: 0.35) {
+                    self.collectionView.alpha = result ? 1.0 : 0.0
+                }
+            }
+        }
+        
+        self.collectionView.alpha = self.viewModel.shouldDisplayTaskList.value ? 1.0 : 0.0
+        
+        self.viewModel.delegate = self
+        
+        self.viewModel.loadTask()
+    }
+
+    
+    // MARK: SpinerHandler
+    
     private func showSpiner() {
         self.spiner.startAnimating()
         self.spiner.isHidden = false
@@ -116,6 +166,8 @@ class TaskListViewController: UIViewController {
         result ? self.showSpiner() : self.hideSpiner()
     }
     
+    // MARK: ErrorView Handler
+    
     private func handleErrorMessage() {
         let alert = UIAlertController(title: nil, message: "Impossible de charger les taches", preferredStyle: UIAlertController.Style.alert)
         let retry = UIAlertAction(title: "Réessayer", style: UIAlertAction.Style.default) { [weak self] _ in
@@ -129,43 +181,19 @@ class TaskListViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    private func setupViewModel() {
-        
-        self.viewModel.shouldDisplaySpiner.bind { [weak self] _, result in
-            guard let `self` = self else { return }
-            DispatchQueue.main.async { self.handleSpinerDisplay(result: result) }
-        }
-        
-        self.handleSpinerDisplay(result: self.viewModel.shouldDisplaySpiner.value)
-        
-        self.viewModel.shouldDisplayTaskList.bind { [weak self] _, result in
-
-            DispatchQueue.main.async {
-                guard let `self` = self else { return }
-                
-                UIView.animate(withDuration: 0.35) {
-                    self.collectionView.alpha = result ? 1.0 : 0.0
-                }
-            }
-        }
-
-        self.collectionView.alpha = self.viewModel.shouldDisplayTaskList.value ? 1.0 : 0.0
-        
-        self.viewModel.delegate = self
-        
-        self.viewModel.loadTask()
-    }
+    // MARK: User action handler
     
-    @objc func userDidTapOnResetButton() {
+    @objc private func userDidTapOnResetButton() {
         self.viewModel.userWantToResetTask()
     }
+    
+    // MARK: UIViewController override
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { _ in
         self.collectionView.collectionViewLayout.invalidateLayout()
         }, completion: nil)
-
     }
     
     override func viewDidLoad() {
@@ -178,6 +206,8 @@ class TaskListViewController: UIViewController {
         self.setupStyle()
     }
 }
+
+// MARK: - UICollectionViewDataSource
 
 extension TaskListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {        
@@ -199,6 +229,8 @@ extension TaskListViewController: UICollectionViewDataSource {
     
 }
 
+// MARK: - UICollectionViewDelegate
+
 extension TaskListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -209,11 +241,15 @@ extension TaskListViewController: UICollectionViewDelegate {
     
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+
 extension TaskListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width - 20, height: 50)
     }
 }
+
+// MARK: - TaskListViewModelDelegate
 
 extension TaskListViewController: TaskListViewModelDelegate {
     func userWantDeleteIndexPath(_ indexPath: IndexPath) {

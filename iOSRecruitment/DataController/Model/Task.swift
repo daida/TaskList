@@ -8,11 +8,21 @@
 
 import Foundation
 
-struct Task: Equatable, Encodable, Decodable {
+// MARK: - Task
+
+struct Task: Encodable, Decodable, Equatable {
+    
+    // MARK: - Private properties
+    
     private let identifier: String
+
+    // MARK: Public properties
+    
     let title: String
     let done: Bool
     let text: String
+    
+    // MARK: init
     
     init(identifier: String = UUID().uuidString, title: String, done: Bool, text: String) {
         self.title = title
@@ -20,6 +30,8 @@ struct Task: Equatable, Encodable, Decodable {
         self.text = text
         self.identifier = identifier
     }
+    
+    // MARK: Public methods
     
     func completeTask() -> Task {
         return Task(identifier: self.identifier, title: self.title, done: true, text: self.text)

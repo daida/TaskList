@@ -9,7 +9,11 @@
 import Foundation
 import UIKit
 
+// MARK: - TaskCell
+
 class TaskCell: UICollectionViewCell {
+
+    // MARK: - Style
     
     private struct Style {
         static let backgroundColor = UIColor.lightGray
@@ -19,7 +23,17 @@ class TaskCell: UICollectionViewCell {
         static let cellCornerRadius: CGFloat = 12.0
     }
     
+    // MARK: Private properties
+    
+    private var taskViewModel: TaskViewModel?
+    
+    // MARK: Static public properties
+    
     static let cellReuseIdentifer = String(describing: self)
+
+    // MARK: Private properties
+    
+    // MARK: UIView
     
     private let label: UILabel = {
         let dest = UILabel(frame: .zero)
@@ -41,12 +55,14 @@ class TaskCell: UICollectionViewCell {
         return dest
     }()
     
-    private weak var taskViewModel: TaskViewModel?
+    // MARK: UICollectionViewCell override
 
     override func prepareForReuse() {
         self.taskViewModel?.done.clearAllObserver()
         self.taskViewModel = nil
     }
+    
+    // MARK: Configure method
     
     func configure(model: TaskViewModel) {
         self.label.text = model.title
@@ -57,6 +73,8 @@ class TaskCell: UICollectionViewCell {
             DispatchQueue.main.async { self.isDoneSwitch.isOn = newValue }
         }
     }
+    
+    // MARK: Setup
 
     private func setupLayout() {
         var constraints = [NSLayoutConstraint]()
@@ -80,14 +98,6 @@ class TaskCell: UICollectionViewCell {
         self.contentView.addSubview(self.deleteButton)
     }
     
-    @objc func userDidTouchSwitch() {
-        self.taskViewModel?.userDidTouchIsDoneSwitch(newValue: self.isDoneSwitch.isOn)
-    }
-    
-    @objc func userDidTouchDeleteButton() {
-        self.taskViewModel?.userDidPressDeleteButton()
-    }
-    
     private func setupSwitch() {
         self.isDoneSwitch.addTarget(self, action: #selector(userDidTouchSwitch), for: .valueChanged)
     }
@@ -105,6 +115,18 @@ class TaskCell: UICollectionViewCell {
         self.deleteButton.titleLabel?.font = Style.deleteButtonFont
         self.contentView.layer.cornerRadius = Style.cellCornerRadius
     }
+    
+    // MARK: User actions
+    
+    @objc func userDidTouchSwitch() {
+        self.taskViewModel?.userDidTouchIsDoneSwitch(newValue: self.isDoneSwitch.isOn)
+    }
+    
+    @objc func userDidTouchDeleteButton() {
+        self.taskViewModel?.userDidPressDeleteButton()
+    }
+    
+    // MARK: Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -1,26 +1,29 @@
 import Foundation
 
-public class Observable<ObservedType> {
+ class Observable<ObservedType> {
     
-    public typealias Observer = (Observable<ObservedType>, ObservedType) -> Void
+    typealias Observer = (Observable<ObservedType>, ObservedType) -> Void
+    
     private var observers: [Observer]
-    public var value: ObservedType {
+    
+    var value: ObservedType {
         didSet {
             notifyObservers(value)
         }
     }
     
-    public init(_ value: ObservedType) {
+    init(_ value: ObservedType) {
         self.value = value
         observers = []
     }
     
-    public func bind(observer: @escaping Observer) {
+    func bind(observer: @escaping Observer) {
         self.observers.append(observer)
     }
     
-    private func notifyObservers(_ value: ObservedType) {
-        self.observers.forEach { [unowned self](observer) in
+    func notifyObservers(_ value: ObservedType) {
+        self.observers.forEach { [weak self] observer in
+            guard let self = `self` else { return }
             observer(self, value)
         }
     }

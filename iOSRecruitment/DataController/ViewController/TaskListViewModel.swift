@@ -8,47 +8,7 @@
 
 import Foundation
 
-extension TaskViewModel: Equatable {
-    static func == (lhs: TaskViewModel, rhs: TaskViewModel) -> Bool {
-        return lhs.task == rhs.task
-    }
-}
-
-final class TaskViewModel: TaskViewModelInterface {
- 
-    private(set) var title: String
-    private(set) var done: Observable<Bool>
-    private(set) var text: String
-    private(set) var shouldBePresented = Observable<Bool>(true)
-
-    private let dataController: TaskDataContollerInterface
-
-    private var task: Task {
-        didSet {
-            self.title = self.task.title
-            self.text = self.task.text
-            self.done.value = self.task.done
-        }
-    }
-    
-    init(task: Task, dataController: TaskDataContollerInterface) {
-        self.title = task.title
-        self.done = Observable<Bool>(task.done)
-        self.text = task.text
-        self.task = task
-        self.dataController = dataController
-    }
-    
-    func userDidTouchIsDoneSwitch(newValue: Bool) {
-        self.task = self.dataController.updateTask(task: self.task, isDone: newValue) ?? self.task
-    }
-    
-    func userDidPressDeleteButton() {
-        if self.dataController.deleteTask(task: self.task) {
-            self.shouldBePresented.value = false
-        }
-    }
-}
+// MARK: - TaskListViewModelDelegate
 
 protocol TaskListViewModelDelegate: class {
     func userWantDeleteIndexPath(_ indexPath: IndexPath)
@@ -56,7 +16,12 @@ protocol TaskListViewModelDelegate: class {
     func displayErrorView()
 }
 
+// MARK: - TaskListViewModel
+
 final class TaskListViewModel: TaskListViewModelInterface {
+    
+    // MARK: Public properties
+    
     weak var delegate: TaskListViewModelDelegate? = nil
     
     private(set) var taskViewModel: [TaskViewModel] = []
@@ -65,11 +30,17 @@ final class TaskListViewModel: TaskListViewModelInterface {
     
     private(set) var shouldDisplayTaskList: Observable<Bool> = Observable(false)
     
+    // MARK: Private properties
+    
     private let dataController: TaskDataContollerInterface
+    
+    // MARK: Init
     
     init(dataController: TaskDataContollerInterface) {
         self.dataController = dataController
     }
+    
+    // MARK: Private methods
     
     private func handleDeleteTaskViewModel(taskViewModel: TaskViewModel) {
         guard let index = (self.taskViewModel.firstIndex { $0 == taskViewModel }) else { return }
@@ -88,6 +59,10 @@ final class TaskListViewModel: TaskListViewModelInterface {
             })
         }
     }
+    
+    // MARK: Public methods
+    
+    // MARK: User Actions
     
     func userWantToResetTask() {
         self.dataController.resetTask { result in

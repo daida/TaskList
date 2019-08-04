@@ -22,6 +22,8 @@
 		A155200A22F5B39400F30901 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155200922F5B39400F30901 /* Observable.swift */; };
 		A155200C22F6E87700F30901 /* TaskDataControllerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155200B22F6E87700F30901 /* TaskDataControllerInterface.swift */; };
 		A155200E22F6EB4200F30901 /* TaskViewModelInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155200D22F6EB4100F30901 /* TaskViewModelInterface.swift */; };
+		A155201022F6F4FF00F30901 /* TaskApiServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155200F22F6F4FF00F30901 /* TaskApiServiceMock.swift */; };
+		A155201222F6F73000F30901 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A155201122F6F73000F30901 /* TaskViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		A155200922F5B39400F30901 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		A155200B22F6E87700F30901 /* TaskDataControllerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataControllerInterface.swift; sourceTree = "<group>"; };
 		A155200D22F6EB4100F30901 /* TaskViewModelInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModelInterface.swift; sourceTree = "<group>"; };
+		A155200F22F6F4FF00F30901 /* TaskApiServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskApiServiceMock.swift; sourceTree = "<group>"; };
+		A155201122F6F73000F30901 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 				A1551FFA22F59BB600F30901 /* TaskListViewController.swift */,
 				A1551FFE22F59BE000F30901 /* TaskDetailViewController.swift */,
 				A1551FFC22F59BD200F30901 /* TaskCell.swift */,
+				A155201122F6F73000F30901 /* TaskViewModel.swift */,
 				A155200722F5A3B700F30901 /* TaskListViewModel.swift */,
 				A155200D22F6EB4100F30901 /* TaskViewModelInterface.swift */,
 			);
@@ -103,6 +108,7 @@
 				A155200422F59C9200F30901 /* Model */,
 				A155200022F59C6900F30901 /* TaskDataController.swift */,
 				09D005882293F1F900477097 /* TaskAPIService.swift */,
+				A155200F22F6F4FF00F30901 /* TaskApiServiceMock.swift */,
 				A155200222F59C7400F30901 /* TaskArchiver.swift */,
 				A155200B22F6E87700F30901 /* TaskDataControllerInterface.swift */,
 				A1551FF622F59A1B00F30901 /* ViewController */,
@@ -199,7 +205,9 @@
 				A1551FFD22F59BD200F30901 /* TaskCell.swift in Sources */,
 				A155200822F5A3B700F30901 /* TaskListViewModel.swift in Sources */,
 				A155200322F59C7400F30901 /* TaskArchiver.swift in Sources */,
+				A155201022F6F4FF00F30901 /* TaskApiServiceMock.swift in Sources */,
 				A1551FFB22F59BB600F30901 /* TaskListViewController.swift in Sources */,
+				A155201222F6F73000F30901 /* TaskViewModel.swift in Sources */,
 				A155200E22F6EB4200F30901 /* TaskViewModelInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

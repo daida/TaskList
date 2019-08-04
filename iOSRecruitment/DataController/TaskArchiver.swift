@@ -8,7 +8,11 @@
 
 import Foundation
 
+// MARK: TaskArchiver
+
 struct TaskArchiver: TaskArchiverInterface {
+
+    // MARK: Private properties
     
     private let jsonEncoder = JSONEncoder()
     private let jsonDecoder = JSONDecoder()
@@ -22,6 +26,8 @@ struct TaskArchiver: TaskArchiverInterface {
             fatalError("Can't retrive document path")
         }
     }()
+    
+    // MARK: Public methods
     
     func loadTaskFromDisk(completion: @escaping TaskArchiverLoadingHandlerClosure) {
         self.dispatchQueue.async {
@@ -59,7 +65,5 @@ struct TaskArchiver: TaskArchiverInterface {
                 print("Error -> \(error.localizedDescription)")
             }
         }
-
     }
-    
 }

@@ -9,11 +9,17 @@
 import Foundation
 import UIKit
 
+// MARK: - TaskDetailViewControllerDetailDelegate
+
 protocol TaskDetailViewControllerDetailDelegate: class {
     func userDidDeleteTask()
 }
 
+// MARK: - TaskDetailViewController
+
 class TaskDetailViewController: UIViewController {
+    
+    // MARK: - Style
     
     private struct Style {
         static let backgroundColor = UIColor.white
@@ -28,9 +34,15 @@ class TaskDetailViewController: UIViewController {
         static let deleteButtonCornerRadius: CGFloat = 7.0
     }
     
-    private let taskViewModel: TaskViewModelInterface
+    // MARK: Public properties
     
     weak var delegate: TaskDetailViewControllerDetailDelegate? = nil
+    
+    // MARK: Private properties
+    
+    private let taskViewModel: TaskViewModelInterface
+    
+    // MARK: UIView
     
     private let titleLabel: UILabel = {
         let dest = UILabel()
@@ -64,6 +76,8 @@ class TaskDetailViewController: UIViewController {
         return dest
     }()
     
+    // MARK: Init
+    
     init(taskViewModel: TaskViewModelInterface) {
         self.taskViewModel = taskViewModel
         super.init(nibName: nil, bundle: nil)
@@ -72,6 +86,8 @@ class TaskDetailViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: Setup
     
     private func setupModel() {
         self.isDoneSwitch.isOn = self.taskViewModel.done.value
@@ -83,7 +99,6 @@ class TaskDetailViewController: UIViewController {
             if newValue == false {
                 self.delegate?.userDidDeleteTask()
             }
-            
         }
     }
     
@@ -120,24 +135,6 @@ class TaskDetailViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
     
-    private func setupView() {
-        self.view.addSubview(self.titleLabel)
-        self.view.addSubview(self.isDoneSwitch)
-        self.view.addSubview(self.textView)
-        self.view.addSubview(self.deleteButton)
-        self.view.addSubview(self.doneLabel)
-        self.title = "Task Detail"
-        self.doneLabel.text = "Done"
-    }
-    
-   @objc private func handleUserDidTouchSwitch() {
-        self.taskViewModel.userDidTouchIsDoneSwitch(newValue: self.isDoneSwitch.isOn)
-    }
-    
-    @objc private func handleUserDidTouchDeleteButton() {
-        self.taskViewModel.userDidPressDeleteButton()
-    }
-    
     private func setupSwitch() {
         self.isDoneSwitch.addTarget(self, action: #selector(handleUserDidTouchSwitch), for: .valueChanged)
     }
@@ -158,6 +155,28 @@ class TaskDetailViewController: UIViewController {
         self.deleteButton.backgroundColor = Style.deleteButtonBackgroundColor
         self.deleteButton.layer.cornerRadius = Style.deleteButtonCornerRadius
     }
+    
+    private func setupView() {
+        self.view.addSubview(self.titleLabel)
+        self.view.addSubview(self.isDoneSwitch)
+        self.view.addSubview(self.textView)
+        self.view.addSubview(self.deleteButton)
+        self.view.addSubview(self.doneLabel)
+        self.title = "Task Detail"
+        self.doneLabel.text = "Done"
+    }
+    
+    // MARK: User action
+    
+   @objc private func handleUserDidTouchSwitch() {
+        self.taskViewModel.userDidTouchIsDoneSwitch(newValue: self.isDoneSwitch.isOn)
+    }
+    
+    @objc private func handleUserDidTouchDeleteButton() {
+        self.taskViewModel.userDidPressDeleteButton()
+    }
+
+    // MARK: UIViewController override
     
     override func viewDidLoad() {
         super.viewDidLoad()
