@@ -10,9 +10,9 @@ import Foundation
 @testable import iOSRecruitment
 
 struct DataControllerMock: TaskDataContollerInterface {
-    
+
     var error: Bool = false
-    
+
     func loadTask(completion: @escaping TaskDataControllerLoadTaskHandlerClosure) {
         if error == true {
             completion(.error)
@@ -20,11 +20,11 @@ struct DataControllerMock: TaskDataContollerInterface {
         }
         completion(.success(task: [Task(title: "Une tache de test", done: false, text: "Une tache")]))
     }
-    
+
     func deleteTask(task: Task) -> Bool {
         return true
     }
-    
+
     func updateTask(task: Task, isDone: Bool) -> Task? {
         return isDone ? task.completeTask() : task.unCompleteTask()
     }

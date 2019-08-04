@@ -7,12 +7,12 @@ import Foundation
 struct TaskAPIService: TaskAPIServiceInterface {
 
     // MARK: Private properties
-    
+
     /// DispatchQueue used only for `Task` API fetching
     private let dispatchQueue = DispatchQueue(label: "taskApiService", qos: .userInitiated)
 
     // MARK: Public methods
-    
+
     /// Retrive `Task` Array from the remote API
     ///
     /// - Parameter completion: completion closure with an array of `Task`

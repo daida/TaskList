@@ -14,11 +14,10 @@ extension XCUIElementQuery {
     }
 }
 
-
 class iOSRecruitmentUITests: XCTestCase {
 
     let app = XCUIApplication()
-    
+
     override func setUp() {
         self.app.launchArguments = ["TEST_UI"]
         self.app.launch()
@@ -30,7 +29,7 @@ class iOSRecruitmentUITests: XCTestCase {
         self.app.collectionViews["TaskListCollection"].cells.firstMatch.tap()
         XCTAssert(self.app.otherElements["TaskDetail"].waitForExistence(timeout: 5))
     }
-    
+
     func testActivate() {
         self.app.collectionViews["TaskListCollection"].cells.firstMatch.tap()
         XCTAssert(self.app.otherElements["TaskDetail"].waitForExistence(timeout: 5))

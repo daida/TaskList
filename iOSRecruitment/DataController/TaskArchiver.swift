@@ -14,34 +14,37 @@ import Foundation
 struct TaskArchiver: TaskArchiverInterface {
 
     // MARK: Private properties
-    
+
     // MARK: Archiver / Decoder
-    
+
     /// Encoder used to encode an array of `Task` to a JSON object
     private let jsonEncoder = JSONEncoder()
 
     /// Decoder used to retrive `Task` from a JSON file
     private let jsonDecoder = JSONDecoder()
-    
+
     // MARK: DispatchQueue
-    
+
     /// DispatchQueue used during the encoding / decoding process in order to not block the mainQueue
     private let dispatchQueue = DispatchQueue(label: "TaskArchiver", qos: DispatchQoS.userInitiated)
 
     // MARK: Archive file path
-    
+
     /// Retrive the user document path and add the name of the file "tasks.json"
     private let archiveFileURL: URL = {
         do {
-            let dest = try FileManager.default.url(for: FileManager.SearchPathDirectory.documentDirectory, in: FileManager.SearchPathDomainMask.userDomainMask, appropriateFor: nil, create: true)
+            let dest = try FileManager.default.url(for:
+                FileManager.SearchPathDirectory.documentDirectory,
+                                                   in: FileManager.SearchPathDomainMask.userDomainMask,
+                                                                   appropriateFor: nil, create: true)
             return dest.appendingPathComponent("tasks.json")
         } catch {
             fatalError("Can't retrive document path")
         }
     }()
-    
+
     // MARK: Public methods
-    
+
     /// Retrive a `Task` array from the file system
     ///
     /// - Parameter completion: completion closure with an optional array of `Task`
@@ -52,13 +55,12 @@ struct TaskArchiver: TaskArchiverInterface {
                 let data = try Data(contentsOf: self.archiveFileURL)
                 let task = try self.jsonDecoder.decode([Task].self, from: data)
                 completion(task)
-            }
-            catch {
+            } catch {
                 completion(nil)
             }
         }
     }
-    
+
     /// Save an array of `Task` on the filesystem
     ///
     /// - Parameters:
@@ -77,7 +79,7 @@ struct TaskArchiver: TaskArchiverInterface {
             }
         }
     }
-    
+
     /// Delete the `Task` from the file system
     ///
     /// - Parameter completion: completion closure with a `Bool` parameter true

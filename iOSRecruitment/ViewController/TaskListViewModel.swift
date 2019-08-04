@@ -21,37 +21,37 @@ protocol TaskListViewModelDelegate: class {
 
 /// This ViewModel handle the displaying of a Task list
 final class TaskListViewModel: TaskListViewModelInterface {
-    
+
     // MARK: Public properties
-    
+
     /// Used to communicate with the ViewController
-    weak var delegate: TaskListViewModelDelegate? = nil
-    
+    weak var delegate: TaskListViewModelDelegate?
+
     /// In a list context, it will be used to populate cells
     private(set) var taskViewModel: [TaskViewModelInterface] = []
-    
+
     /// Observable property describe if a spiner should be displayed
     private(set) var shouldDisplaySpiner: Observable<Bool> = Observable(true)
 
     /// Observable property describe if the task list should be displayed
     private(set) var shouldDisplayTaskList: Observable<Bool> = Observable(false)
-    
+
     // MARK: Private properties
-    
+
     /// Used to fetch task, and reset Task cache
     private let dataController: TaskDataContollerInterface
-    
+
     // MARK: Init
-    
+
     /// Init
     ///
     /// - Parameter dataController: a concrete implentation of `TaskDataContollerInterface`
     init(dataController: TaskDataContollerInterface) {
         self.dataController = dataController
     }
-    
+
     // MARK: Private methods
-    
+
     /// For every `TaskViewModel` the `TaskListViewModel` will bind on the property
     /// `shouldBePresented` if the value is set to false the corresponding `TaskViewModel`
     /// is removed from the array of `TaskViewModel` and the viewController is notify,
@@ -65,7 +65,7 @@ final class TaskListViewModel: TaskListViewModelInterface {
         self.taskViewModel.remove(at: index)
         self.delegate?.userWantDeleteIndexPath(IndexPath(item: index, section: 0))
     }
-    
+
     /// Generate `TaskViewModel` from `Task` and subscribe to the `shouldBePresented` Observable property
     ///
     /// - Parameter task: `Task` array model
@@ -80,11 +80,11 @@ final class TaskListViewModel: TaskListViewModelInterface {
             })
         }
     }
-    
+
     // MARK: Public methods
-    
+
     // MARK: User Actions
-    
+
     /// Called when the user tap on the reset button,
     /// delete all cached task and reload them from the Api.
     func userWantToResetTask() {
@@ -94,11 +94,11 @@ final class TaskListViewModel: TaskListViewModelInterface {
             }
         }
     }
-    
+
     /// Start loading task by setting all Observable property in "loading" mode
     /// Then update them when the task are loaded, some delegate methods are also called
     func loadTask() {
-        
+
         self.shouldDisplaySpiner.value = true
         self.shouldDisplayTaskList.value = false
         self.taskViewModel.forEach { $0.shouldBePresented.clearAllObserver() }
