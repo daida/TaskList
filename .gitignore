@@ -1,2 +1,6 @@
-iOSRecruitment.xcodeproj/project.xcworkspace/xcuserdata/*
-iOSRecruitment.xcodeproj/xcuserdata
+TaskList.xcodeproj/project.xcworkspace/xcuserdata
+TaskList.xcodeproj/project.xcworkspace/xcuserdata/*
+./TaskList.xcodeproj/project.xcworkspace/xcuserdata
+TaskList.xcodeproj/xcuserdata
+.DS_Store
+
